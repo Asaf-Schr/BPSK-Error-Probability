@@ -56,9 +56,25 @@ ylabel('symbol error probability P_e');
 title('BPSK error probability over the gaussian channel');
 legend('show', 'Location', 'southwest');
 
+% 1.2.6
+% --- MAP decoding over the SNR sweep (Laplace channel) ---
+s_hat_L = zeros(numel(SNR_lin), N);
+for k = 1:numel(SNR_lin)
+    r_L = laplace_channel(s, SNR_lin(k), Es);
+    s_hat_L(k,:) = sign(r_L);  % MAP rule threshold at r = 0
+end
 
+% --- Error probability of the decoded stream ---
+Pe_L = mean(s_hat_L ~= s, 2);  % one error probability per SNR
 
-
+% --- Plot Pe vs. SNR (Laplace channel) ---
+figure;
+semilogy(SNR_dB, Pe_L, '-s','DisplayName', 'Laplace (simulation)');
+grid on;
+xlabel('SNR per symbol [dB]');
+ylabel('Symbol error probability  P_e');
+title('BPSK error probability over the Laplace channel');
+legend('show', 'Location', 'southwest');
 
 
 
@@ -75,4 +91,14 @@ function r = gaussian_channel(s, SNR, Es)
     sigma = sqrt(N0 / 2); % std of each noise sample: var = N0/2
     w     = sigma * randn(size(s));   % gaussian noise N(0, N0/2)
     r     = s + w; % channel output
+end
+
+function r = laplace_channel(s, SNR, Es)
+    % 1.2.6
+    % laplace noise channel R = S + W, with W ~ Laplace(0, var = N0/2)
+    % SNR = Es/N0  =>  N0 = Es/SNR  =>  var = N0/2 = Es/(2*SNR).
+    % laprnd's 4th argument is the standard deviation, so sigma = sqrt(var)
+    sigma = sqrt(Es / (2*SNR));
+    w = laprnd(1, numel(s), 0, sigma);
+    r = s + w;
 end
