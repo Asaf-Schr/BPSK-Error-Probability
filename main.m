@@ -13,7 +13,7 @@ Es = 1;  %symbol energy
 constellation = [sqrt(Es), -sqrt(Es)];  
 priors = [0.5, 0.5];         % equal a priori probabilities
 
-s = randsrc(1, N, [constellation; priors]);   % Nx1 row of transmitted symbols
+s = randsrc(1, N, [constellation; priors]);% Nx1 row of transmitted symbols
 
 
 % debug
@@ -49,7 +49,7 @@ Pe_G = mean(s_hat_G~=s,2); % column vector one error probability per SNR
 % 1.2.5
 % plot the error probability vs SNR (gaussian channel)
 figure;
-plot(SNR_dB,Pe_G, '-o','DisplayName', 'Gaussian (simulation)');
+plot(SNR_dB,Pe_G, '-o','DisplayName', 'Gaussian');
 grid on;
 xlabel('SNR per symbol [dB]');
 ylabel('symbol error probability P_e');
@@ -57,19 +57,19 @@ title('BPSK error probability over the gaussian channel');
 legend('show', 'Location', 'southwest');
 
 % 1.2.6
-% --- MAP decoding over the SNR sweep (Laplace channel) ---
+% MAP decoding over the SNR sweep (Laplace channel)
 s_hat_L = zeros(numel(SNR_lin), N);
 for k = 1:numel(SNR_lin)
     r_L = laplace_channel(s, SNR_lin(k), Es);
     s_hat_L(k,:) = sign(r_L);  % MAP rule threshold at r = 0
 end
 
-% --- Error probability of the decoded stream ---
+% Error probability of the decoded stream
 Pe_L = mean(s_hat_L ~= s, 2);  % one error probability per SNR
 
-% --- Plot Pe vs. SNR (Laplace channel) ---
+% Plot Pe vs SNR (Laplace channel)
 figure;
-plot(SNR_dB, Pe_L, '-s','DisplayName', 'Laplace (simulation)');
+plot(SNR_dB, Pe_L, '-s','DisplayName', 'Laplace');
 grid on;
 xlabel('SNR per symbol [dB]');
 ylabel('Symbol error probability  P_e');
@@ -90,13 +90,6 @@ xlabel('SNR per symbol [dB]');
 ylabel('Symbol error probability P_e');
 title('BPSK error probability Gaussian vs Laplace channel');
 legend('show', 'Location', 'southwest');
-
-
-
-
-
-
-
 
 % ===== functions =====
 
