@@ -49,7 +49,7 @@ Pe_G = mean(s_hat_G~=s,2); % column vector one error probability per SNR
 % 1.2.5
 % plot the error probability vs SNR (gaussian channel)
 figure;
-semilogy(SNR_dB,Pe_G, '-o','DisplayName', 'Gaussian (simulation)');
+plot(SNR_dB,Pe_G, '-o','DisplayName', 'Gaussian (simulation)');
 grid on;
 xlabel('SNR per symbol [dB]');
 ylabel('symbol error probability P_e');
@@ -69,12 +69,31 @@ Pe_L = mean(s_hat_L ~= s, 2);  % one error probability per SNR
 
 % --- Plot Pe vs. SNR (Laplace channel) ---
 figure;
-semilogy(SNR_dB, Pe_L, '-s','DisplayName', 'Laplace (simulation)');
+plot(SNR_dB, Pe_L, '-s','DisplayName', 'Laplace (simulation)');
 grid on;
 xlabel('SNR per symbol [dB]');
 ylabel('Symbol error probability  P_e');
 title('BPSK error probability over the Laplace channel');
 legend('show', 'Location', 'southwest');
+
+
+% 1.2.7
+% gaussian vs laplace error probability on a single graph
+
+figure;
+plot(SNR_dB,Pe_G,'-o','Color','b','DisplayName', 'Gaussian');
+hold on;
+plot(SNR_dB,Pe_L,'-s','Color','r','DisplayName', 'Laplace');
+hold off;
+grid on;
+xlabel('SNR per symbol [dB]');
+ylabel('Symbol error probability P_e');
+title('BPSK error probability Gaussian vs Laplace channel');
+legend('show', 'Location', 'southwest');
+
+
+
+
 
 
 
