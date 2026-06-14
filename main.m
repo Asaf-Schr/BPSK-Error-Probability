@@ -43,9 +43,23 @@ for k = 1:numel(SNR_lin)
 end
 
 % 1.2.4 
-% error probability of the decoded stream (Gaussian channel)
+% error probability of the decoded stream (gaussian channel)
 Pe_G = mean(s_hat_G~=s,2); % column vector one error probability per SNR
- 
+
+% 1.2.5
+% plot the error probability vs SNR (gaussian channel)
+figure;
+semilogy(SNR_dB,Pe_G, '-o','DisplayName', 'Gaussian (simulation)');
+grid on;
+xlabel('SNR per symbol [dB]');
+ylabel('symbol error probability P_e');
+title('BPSK error probability over the gaussian channel');
+legend('show', 'Location', 'southwest');
+
+
+
+
+
 
 
 
