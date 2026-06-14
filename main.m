@@ -108,7 +108,7 @@ end
 function r = laplace_channel(s, SNR, Es)
     % 1.2.6
     % laplace noise channel R = S + W, with W ~ Laplace(0, var = N0/2)
-    % SNR = Es/N0  =>  N0 = Es/SNR  =>  var = N0/2 = Es/(2*SNR).
+    % SNR = Es/N0  =>  N0 = Es/SNR  =>  var = N0/2 = Es/(2*SNR)
     % laprnd's 4th argument is the standard deviation, so sigma = sqrt(var)
     sigma = sqrt(Es / (2*SNR));
     w = laprnd(1, numel(s), 0, sigma);
