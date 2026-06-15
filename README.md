@@ -99,3 +99,5 @@ The full derivation lives in [`doc/analysis.pdf`](doc/analysis.pdf) and covers:
 
 Developed as part of the course **Introduction to Modern Communications** at
 Ben-Gurion University of the Negev, taught by **Prof. Kobi Cohen**.
+
+The Laplace noise generator (laprnd.m) is a public function by Elvis Chen, used here for noise generation. The original author header is kept intact in the file.
